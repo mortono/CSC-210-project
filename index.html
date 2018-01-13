@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="./js/jquery.cookie.js"></script>        
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="stylesheet" type="text/css" href="./css/index.css">
+	<link rel="icon" type="image/ico" href="./img/cal.ico">
+	<meta charset="UTF-8">
+	<title>GroupMeet</title>
+</head>
+<body>
+	<div class="content">
+		<form name="login" id="login" action="#">
+			<table>
+				<tr>
+					<td>
+						<a href="./index.html">
+							<img src="./img/logo.png" alt="GroupMeet Logo" id="logo">
+						</a>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="text" name="email" placeholder="Email">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="password" name="password" placeholder="Password">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<font size=2 color=red id="error"></font>
+					</td>
+				</tr>
+			</table>
+			
+			<br>
+			<input type="submit" value="Login" class="formButton" id="loginButton">
+		</form>
+		<div id = "buttonContainer">
+			<input type="create" value = "Create Account" class="formButton" id = "createAccount">
+		</div>
+	</div>
+</body>
+<script>
+    if(typeof $.cookie('id') === 'undefined') {
+        function setCookie(c_name, value) {
+            document.cookie = c_name + "=" + escape(value) + "; path='\';"
+        }
+        var rand=Math.floor(Math.random() * 999999999);
+        setCookie("id", rand, {expires: 1000});
+        var input=document.createElement('input');
+        input.type='hidden';
+        input.name='id';
+        input.value=rand;
+        document.forms["login"].appendChild(input);
+    } else {
+        var rand = parseInt($.cookie('id'));
+        if(parseInt($.cookie("id")) > 1) {
+            function checkLogin(arg) {
+                $.post("./cgi-bin/get_data_type.py", arg, function(result) {
+                    if(result.indexOf("None400") !== -1) {
+                        console.log(result);						
+                    } else {
+                        window.location.href="./dashboard.html";
+                    }
+                })
+            }
+            var args = {"id": rand, "typeToReturn": "email"};
+            checkLogin(args);
+        }
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'id';
+        input.value = rand;
+        document.forms["login"].appendChild(input);
+    }
+</script>
+<script>
+function logInCGI(arg) {
+    $.post("./cgi-bin/login.py", arg, function(result) {
+        console.log(result);
+        if (result.indexOf("email400") !== -1) {
+            document.getElementById("error").textContent = "There is no account with the given email.";
+        } else if (result.indexOf("locked") !== -1) {
+            //console.log(result);
+            document.getElementById("error").textContent = "You have no more login attempts. Please wait an hour before trying again.";
+        } else if (result.indexOf("incorrect") !== -1) {
+            var attempts = result.substring(9);
+            document.getElementById("error").textContent = "Password and email do not match. You have " + attempts + " login attempts remaining.";
+        } else if (result.indexOf("success") !== -1){
+            window.location.href = "./index.html";
+        } else {
+            console.log(result);
+            document.getElementById("error").textContent = "There was an error! Please try again.";
+        }
+    })
+}
+function logIn() {
+    var email = document.forms["login"]["email"].value;
+    var password = document.forms["login"]["password"].value;
+    
+    if (email==null||email=="", password==null||password=="") {
+        document.getElementById("error").textContent = "Please fill out all of the input fields.";
+    } else {
+        var arguements = {"email": email, "password": password, "id": rand};
+        return logInCGI(arguements);
+    }
+}
+
+$('#login').submit(function () {
+    logIn();
+    return false;
+});
+$(document).ready(function(){
+	$("#createAccount").click(function(){window.location = "./signup.html"});
+	console.log($("#loginButton").width());
+	//$("#createAccount").width($("#loginButton").width());
+});
+
+</script>
+</html>

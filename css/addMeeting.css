@@ -1,0 +1,97 @@
+
+.headerTable td:first-child
+{
+	text-align: left;
+}
+#main
+{
+	padding-top: 20px;
+	width: 75%;
+	margin: 0 auto;
+	margin-top: 30vh;
+	margin-bottom: 30vh;
+}
+.ui-datepicker-div
+{
+	background-color: white;
+}
+#name
+{
+	width: 100%;
+	padding: 5px;
+	font-size: 16px;
+}
+#eventTitle
+{
+	width: 90%;
+	margin: 0 auto;
+	text-align: center;
+}
+#detailTable
+{
+	width: 75%;
+	margin-left: 5%;
+}
+td
+{
+	padding: 5px;
+}
+#submit
+{
+	margin-left: 50px;
+	background-color: #4CAF50; /* Green */
+    border: 2px solid #4CAF50;
+    color: white;
+    padding: 10px 32px;
+    float: left;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+#submit:hover
+{
+	background-color: white;
+	color: #4CAF50;
+}
+.ui-timepicker-standard 
+{
+	font-size: 13px;
+}
+.textArea
+{
+	width: 84.5%;
+	font-family: Roboto, Helvetica, Arial, sans-serif;
+    resize: none;
+    height: 50px;    
+}
+#areaDiv
+{
+	width: 90%;
+	margin: 0 auto;
+    margin-bottom: 70px;
+    margin-top: 20px;
+}
+#location {
+    width: 260px;
+}
+#friendsList
+{
+	margin-top: 15px;
+	border: 1px grey solid;
+	background-color: white;
+	width: 85%;
+	border-collapse: collapse;
+}
+#friendsList td *
+{
+	pointer-events: none;
+}
+#friendsList tr
+{
+	cursor: pointer;
+}
+#friendsList tr:hover
+{
+	background-color: #efefef;
+	border-color: #efefef;
+}

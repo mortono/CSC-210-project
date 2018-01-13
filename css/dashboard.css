@@ -1,0 +1,466 @@
+html::-webkit-scrollbar { 
+    display: none; 
+}
+ul
+{
+	list-style-type: none;
+}
+header
+{
+	height: 80px;
+	font-size: 14px;
+	box-shadow: none;
+	border-bottom: 1px solid black;
+}
+h2
+{
+	text-align: center;
+}
+table
+{
+	width: 100%;
+}
+#main
+{
+	background-color: #f2f2f2;
+}
+.arrowTd
+{
+	width: 10%;
+}
+#rightArrow
+{
+	padding-left: 10px;
+}
+#leftArrow
+{
+	padding-right: 10px;
+}
+.headerTable td:first-child
+{
+	text-align: right;
+}
+#myAccount
+{
+	text-align: right;
+	padding-right: 50px;
+	text-decoration: underline;
+	cursor: pointer;
+}
+#searchBarContainer form {
+	width: 100%;
+}
+#searchbar {
+    height: 30px;
+	width: 480px;
+	padding: 6px;
+	font-size: 16px;
+}
+#dropdown {
+    display: none;
+    overflow: none;
+    position: fixed;
+    width: 520px;
+    background: white;
+    border: 1px solid gray;
+}
+
+#dropdown ul li {
+    padding-top: 15px;
+    padding-bottom: 10px;
+    border-top: 1px dashed black;
+    width: calc(100% - 20px);
+}
+#dropdown ul li:nth-child(1) {
+    border: none;
+}
+#results {
+    padding-left: 20px;
+    margin-top: 0;
+}
+#userMenu
+{
+	width: 10%;
+	float: right;
+	margin-right: 5%;
+	min-width: 50px;
+	background-color: white;
+	position:absolute;
+    box-shadow: 0px 0px 7px black;
+    text-align: right;
+}
+#logo 
+{
+	height: 50px;
+}
+.content
+{
+	height: calc(100vh - 100px);
+	max-height: calc(100vh - 100px);
+	min-height: calc(100vh - 100px);
+	float: left;
+	padding: 10px 1px;
+}
+.collapse
+{
+	width: 15%;
+	height: calc(100vh - 80px);
+	max-height: calc(100vh - 80px);
+	min-height: calc(100vh - 80px);
+	background-color: #0C2C52;
+	color: white;
+	padding-right: 0px;
+	padding-left: 0px;
+}
+#calendar
+{
+	width: calc(70% - 42px);
+	background-color: #FFFFFF;
+	margin: 20px;
+	overflow: hidden;
+	border-bottom: 1px solid black;
+}	
+#main
+{
+	margin-top: 80px;
+	overflow: hidden;
+	min-width: 1200px;
+}
+.collapse hr
+{
+	margin-bottom: 0px;
+}
+.collapseList
+{
+	margin-top: 0px;
+	padding: 0px;
+}
+.collapseList li
+{
+	margin-top: 0px;
+	padding-left: 10px;
+	padding-right: 10px;
+	min-height: 50px;
+	line-height: 55px;
+	border-bottom: 1px white solid;
+	cursor: pointer;
+}
+.collapse .symbol {
+    color: white;
+}
+.symbol {
+    text-decoration: none;
+	font-size: 28px;
+	cursor: pointer;
+	height: 28px;
+}
+.friend div {
+    line-height: 20px;
+    margin-bottom: 10px;
+}
+.friendLink {
+    color: lightskyblue;
+    text-decoration: underline;
+}
+#showConversation
+{
+	margin-bottom: 5px;
+}
+#showMeeting
+{
+	margin-bottom: 5px;
+}
+.calendarTable
+{
+	height: 100%;
+	width: 100%;
+	border-collapse: collapse;
+	table-layout: fixed;
+}
+#calendarHeader
+{
+	max-height: 64px;
+	border-bottom: 2px solid black;
+}
+#calendarTable td, th
+{
+	height: 40px;
+	border: 1px solid black;
+	padding: 0px;
+}
+#calendarTable td:first-child
+{
+	text-align: center;
+	vertical-align: center;
+}
+.hour
+{
+	height: 20px;
+}
+.top
+{
+	border-bottom: 1px solid grey;
+}
+#calendarContainer
+{
+	overflow-y: scroll; 
+	max-height: calc(100% - 100px);
+ 	overflow-x: hidden;
+}
+#calendarContainer::-webkit-scrollbar
+{
+	display: none;
+}
+.buttonContainer
+{
+	border: 1px black solid;
+	border-radius: 7px;
+	margin-right: 50px;
+	margin-left: 10px;
+	background-color: #f3f3f3;
+	font-size: 11px;
+}
+#metaCalendarHeader
+{
+	margin-top: 5px;
+}
+#metaCalendarHeader div
+{
+	float: left;
+}
+#metaCalendarHeaderTable
+{
+	margin-bottom: 5px;
+}
+#dateSelectorDropdown
+{
+	margin-right: 17px;
+	line-height: 30px;
+	cursor: pointer;
+}
+.buttonBox
+{
+	cursor: pointer;
+	min-width: 40px;
+	text-align: center;
+	border-left: 1px black solid;
+	padding: 5px;
+	font-weight: bold;
+}
+.buttonBox:first-child
+{
+	border: none;
+}
+.buttonBox a
+{
+	pointer-events: none;
+	user-select: none;
+}
+.selected
+{
+	background-color: #e3e3e3;
+	box-shadow: inset 0px 0px 5px grey;
+}
+footer
+{
+	min-height: 125px;
+	min-width: 1200px;
+	background-color: #1a1a1a;
+}
+#addEvent
+{
+	width: calc(100% - 10px);
+	height: calc(100% - 10px);
+	background-color: #0C2C52;
+    border: 2px solid #0C2C52;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+#addEvent:hover
+{
+	color: #0C2C52;
+	background-color: white;
+}
+.event
+{
+	position: relative;
+	width: calc(100% - 8px);
+	background-color: blue;
+	z-index: 50;
+	margin: 1px;
+	color: white;
+	font-size: 12px;
+	padding: 3px;
+	cursor: pointer;
+	border-bottom: 1px solid grey;
+	border-top: 1px solid grey;
+}
+.event h4
+{
+	margin-top: 0px;
+}
+#day
+{
+	border-top-left-radius: 7px; 
+	border-bottom-left-radius: 7px; 
+}
+#month
+{
+	border-top-right-radius: 7px; 
+	border-bottom-right-radius: 7px; 
+}
+#datepicker
+{
+	display: none;
+	position: absolute;
+	z-index: 51;
+}
+.event * 
+{
+	pointer-events: none;
+}
+.eventDescription
+{
+	position: relative;
+	background: white;
+	border: 1px solid grey;
+	z-index: 150;
+	width: 200%;
+	padding: 5px;
+	margin-bottom: 5px;
+	box-shadow: 0 2px 4px rgba(0,0,0,.2);
+}
+#nextButtons
+{
+	float:right !important;
+	font-size: 16px !important;
+}
+#today
+{
+	float:right !important;
+	font-size: 12px !important;
+}
+#notificationContainer
+{
+	overflow: show;
+	text-align: center;
+	cursor: pointer;
+}
+#notificationArea
+{
+	width: 30%;
+	position: relative;
+	cursor: pointer;
+	min-height: 150px;
+}
+#notificationArrow
+{
+	margin: 0 auto;
+}
+#notificationBox
+{
+	width: 100%;
+	min-height: 150px;
+	box-shadow: 0px 0px 3px black;
+	background-color: white;
+	padding: 3px;
+}
+#notificationTable
+{
+	height: 100%;
+	width: 100%;
+	min-height: 200px;
+	max-height: 500px;
+	border-collapse: collapse;
+	table-layout: fixed;
+}
+#notificationTable td
+{
+	border: 1px solid black;
+	padding: 2px;
+}
+#emptyNofitications
+{
+	height: 120px;
+	text-align: center;
+	font-size: 16px;
+	font-weight: bold;
+	color: #000000;
+	background-color: #efefef;
+}
+.notification:hover
+{
+	background-color: #efefef;
+}
+.redAndBold
+{
+	font-weight: bold;
+}
+.blueAndNormal
+{
+	font-weight: normal;
+	color: blue;
+}
+.friendshipBox 
+{ 
+	width: 500px; 
+	height: 200px; 
+	position: relative; 
+}
+
+#button 
+{ 
+	padding: .5em 1em; 
+	text-decoration: none; 
+}
+#greenButton 
+{ 
+	padding: .5em 1em; 
+	text-decoration: none; 
+	background-color: green;
+}
+#redButton 
+{ 
+	padding: .5em 1em; 
+	text-decoration: none; 
+	background-color: red;
+}
+#effect 
+{ 
+	width: 240px;  
+	padding: 1em; 
+	border: 1px 
+	solid #000; 
+	background: #eee; 
+	color: #333; 
+}
+.notoficationTD *
+{
+	margin-right: 15px;
+}
+.notificationButton
+{
+	width: 75px;
+	height: calc(100% - 10px);
+	background-color: blue;
+    border: 2px solid blue;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+}
+.notificationButton:hover
+{
+	color:blue;
+	background-color: white;
+}
+.resultItem
+{
+	margin-left: 20px;
+}

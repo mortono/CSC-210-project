@@ -1,0 +1,78 @@
+
+.headerTable td:first-child
+{
+	text-align: left;
+}
+#main
+{
+	padding-top: 20px;
+	width: 75%;
+	margin: 0 auto;
+	margin-top: 100px;
+}
+
+/*#newname
+{
+	width: 100%;
+	padding: 5px;
+	font-size: 16px;
+}*/
+#newpass
+{
+	width: 30%;
+	padding: 5px;
+	font-size: 16px;
+}
+#confirmnewpass
+{
+	width: 30%;
+	padding: 5px;
+	font-size: 16px;
+}
+#accounttable
+{
+	width: 80%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+td
+{
+	padding: 5px;
+}
+#update
+{
+	margin-bottom: 30px;
+	background-color: #4CAF50; /* Green */
+    border: 2px solid #4CAF50;
+    color: white;
+    padding: 7px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+#update:hover
+{
+	background-color: white;
+	color: #4CAF50;
+}
+#delete
+{
+	margin-top: 10px;
+	background-color: #E20E02; /* red */
+    border: 2px solid #E20E02;
+    color: white;
+    padding: 7px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+#delete:hover
+{
+	background-color: white;
+	color: #E20E02;
+}

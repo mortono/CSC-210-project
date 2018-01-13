@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+    <script src="./js/jquery.cookie.js"></script>
+    <script src="./js/checkLogin.js"></script>
+	<script src="./js/addEvent.js"></script>
+	<script src = "./js/calendarEvent.js"></script>
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="stylesheet" type="text/css" href="./css/dashboard.css">
+	<link rel="stylesheet" type="text/css" href="./css/addEvent.css">
+	<link rel="stylesheet" type="text/css" href="./css/jquery-ui.css">
+	<link rel="icon" type="image/ico" href="./img/cal.ico">
+	<meta charset="UTF-8">
+	<title>GroupMeet - Create Event</title>
+</head>
+<body>
+		<header>
+		<table class="headerTable">
+			<tr>
+				<td>
+					<a href="./dashboard.html">
+						<img src="./img/logo.png" alt="GroupMeet Logo" id="logo">
+					</a>
+				</td>	
+				<td id="myAccount">
+					<a id="myEmail"></a>
+					<a>&#9660;</a>
+				</td>
+			</tr>
+		</table>
+	</header>
+	<div id = "main">
+		<h1 style = "text-align: center">New Event</h1>
+		<form method="post" action="./cgi-bin/addEvent.py" name="Form">
+			<table id =  'eventTitle'>
+				<tr>
+					<td>
+						<input id = 'name' type = text name = name required placeholder = "Event Name">
+					</td>
+					<td>
+						<input id="submit" type="button" value="Create Event" onclick="getData()">
+					</td>
+				</tr>
+			</table>
+			<br>	
+			<table id = "detailTable">
+				<tr>
+					<td>
+						Event Date: <input type="text" id="sDatePicker" class = "datepicker">
+					</td>		
+					<td>
+						Start Time: <input type = "text" id = "sTimePicker" class = "timepicker">
+					</td>
+					<td>
+						End Time: <input type = "text" id = "eTimePicker" class = "timepicker">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input id="location" type="text" name="location" placeholder="Location" >
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Repeat? <input id ="repeat" type = checkbox>
+					</td>
+				</tr>
+				<tr id = "repeatTable">
+					<td>
+						S <input class = "dayBox" id="day7" type="checkbox" name="day7" value="su"> 
+						M <input class = "dayBox" id="day1" type="checkbox" name="day1" value="m">
+						T <input class = "dayBox" id="day2" type="checkbox" name="day2" value="tu">
+						W <input class = "dayBox" id="day3" type="checkbox" name="day3" value="w">
+						T <input class = "dayBox" id="day4" type="checkbox" name="day4" value="th">
+						F <input class = "dayBox" id="day5" type="checkbox" name="day5" value="f">
+						S <input class = "dayBox" id="day6" type="checkbox" name="day6" value="sa">
+					</td>
+					<td>
+						Repeat every
+						<input type = "number" id = "repeatTime">
+						 week(s)
+					</td>
+					<td>
+						Repeat Until: <input type="text" id="eDatePicker" class = "datepicker">
+					</td>	
+				</tr>
+			</table>
+			<div id = "areaDiv">
+				<textarea name = "description" placeholder="Description" id = "descriptionBox"></textarea>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

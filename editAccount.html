@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="./js/jquery.cookie.js"></script>
+    <script src="./js/checkLogin.js"></script>
+	<script src="./js/addEvent.js"></script>
+	<script src = "./js/calendarEvent.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="stylesheet" type="text/css" href="./css/dashboard.css">
+	<link rel="stylesheet" type="text/css" href="./css/addEvent.css">
+	<link rel="stylesheet" type="text/css" href="./css/editAccount.css">
+	<link rel="stylesheet" type="text/css" href="./css/jquery-ui.css">
+	<link rel="icon" type="image/ico" href="./img/cal.ico">
+//(do we need all of these?)
+	<meta charset="UTF-8">
+	<title>GroupMeet - Edit Account</title>
+</head>
+<body>
+		<header>
+		<table class="headerTable">
+			<tr>
+				<td>
+					<a href="./index.html">
+						<img src="./img/logo.png" alt="GroupMeet Logo" id="logo">
+					</a>
+				</td>	
+				<td id="myAccount">
+					<a id="myEmail">placeholder@u.rochester.edu</a>
+					<a>&#9660;</a>
+				</td>
+			</tr>
+		</table>
+	</header>
+	<div id = "main">
+		<h1 style = "text-align: center">My Account</h1>
+		<form method="post" action="#" name="editaccount" id="editaccount">
+			<table id = 'accounttable'>
+<!-- 				<tr>
+					<td>
+						Change name? (Email cannot be changed.) //i feel like i need tags here or something
+					</td>
+
+					<td>
+						<input id = 'newname' type = text name = newname placeholder = "new name">
+					</td>
+
+				</tr>
+ -->
+				<tr>
+					<td>
+						<strong>Change password?</strong> <!--same deal with the tags-->
+					</td>
+                </tr>
+                <tr>
+					<td>
+						<input id = 'newpass' type = password name = newpass placeholder = "New password">
+					</td>
+                </tr>
+                <tr>
+
+					<td>
+						<input id = 'confirmnewpass' type = password name = confirmnewpass placeholder = "Confirm password">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<font id="error" color=red size=2></font>
+					</td>
+				</tr>
+
+				
+
+				<tr>
+					<td>
+						<input id="update" type="button" value="Update" onclick="changeAccount()">
+					</td>
+				</tr>
+		</form>
+
+				<tr>
+					<td>
+						<strong>Delete account?</strong>
+					</td>
+                </tr>
+                <tr>
+					<td>
+						<input id="delete" type="button" value="Delete" onclick="deleteAccount()">
+					</td>
+				</tr>
+			</table>
+			<br>	
+			
+		</h1>	
+		
+	</div>
+</body>
+<script>
+function changeAccountCGI(args) { //function that sends form data to python file to change
+    //console.log("you got here 3");
+    $.post("./cgi-bin/changeAccount.py", args, function(result) {
+        console.log(result);
+        // if (result.indexOf("username taken") !== -1) {
+        //     document.getElementById("error").textContent = "That username is already taken.";
+        if (result.indexOf("length") !== -1) {
+            document.getElementById("error").textContent = "Your password must be at least 6 characters long.";
+        } else if (result.indexOf("number") !== -1) {
+            document.getElementById("error").textContent = "Your password must contain at least one number 0-9.";
+        } else if (result.indexOf("special") !== -1) {
+            document.getElementById("error").textContent = "Your password must contain at least one special character !@#$%^&*.";
+        } else if (result.indexOf("inequal") !== -1) {
+            document.getElementById("error").textContent = "This shouldn't happen.";
+        } else if (result.indexOf("success") !== -1) {
+            //console.log("redirecting ");
+            console.log(result);
+            window.location.href = "./dashboard.html";
+        } else {
+            document.getElementById("error").textContent = "There was an error! Please try again.";
+            console.log(result);
+        }
+//        console.log(" did it ");
+//        console.log(result);
+    })
+}
+function changeAccount() {
+    //console.log("you got here 1");
+//    var newname = document.forms["editaccount"]["newname"].value;
+    var newpass = document.forms["editaccount"]["newpass"].value;
+    var confirmnewpass = document.forms["editaccount"]["confirmnewpass"].value;
+    var sessid = $.cookie("id");
+    if (newpass != confirmnewpass) {
+       document.getElementById("error").textContent = "The password confirmation field did not match your chosen password.";
+    } else {
+	//console.log("you got here 2");
+        var arguments = { "password": newpass, "confirm": confirmnewpass, "sessionid": sessid };
+        return changeAccountCGI(arguments);
+    }
+}
+
+function deleteAccountCGI(args) { //function that calls python file to delete account
+    $.post("./cgi-bin/deleteAccount.py", args,  function(result) {
+        if (result.indexOf("deleted") !== -1) {
+            $.removeCookie("id");
+            window.location.href = "./index.html";
+        }
+        console.log(result);
+    })
+}
+function deleteAccount() {
+    var sessid = $.cookie("id");
+    var arguments2 = { "sessionid": sessid };
+    return deleteAccountCGI(arguments2);
+
+}
+$('#editaccount').submit(function () {
+    changeAccount();
+    return false;
+});
+</script>
+</html>
+

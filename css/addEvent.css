@@ -1,0 +1,75 @@
+
+.headerTable td:first-child
+{
+	text-align: left;
+}
+#main
+{
+	padding-top: 20px;
+	width: 75%;
+	margin: 0 auto;
+	margin-top: 30vh;
+}
+.ui-datepicker-div
+{
+	background-color: white;
+}
+#name
+{
+	width: 100%;
+	padding: 5px;
+	font-size: 16px;
+}
+#eventTitle
+{
+	width: 90%;
+	margin: 0 auto;
+	text-align: center;
+}
+#detailTable
+{
+	width: 75%;
+	margin-left: 5%;
+}
+td
+{
+	padding: 5px;
+}
+#submit
+{
+	margin-left: 50px;
+	background-color: #4CAF50; /* Green */
+    border: 2px solid #4CAF50;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+#submit:hover
+{
+	background-color: white;
+	color: #4CAF50;
+}
+.ui-timepicker-standard 
+{
+	font-size: 13px;
+}
+#descriptionBox
+{
+    width: 85%;
+	font-family: Roboto, Helvetica, Arial, sans-serif;
+	resize: none;
+}
+#areaDiv
+{
+	width: 90%;
+	margin: 0 auto;
+	margin-bottom: 70px;
+}
+#repeatTable
+{
+	display: none;
+}

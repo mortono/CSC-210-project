@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+    <script src="./js/jquery.cookie.js"></script>
+    <script src="./js/checkLogin.js"></script>
+	<script src="./js/dashboard.js"></script>
+	<script src="./js/meeting.js"></script>
+	<script src="./js/friend.js"></script>
+	<script src="./js/notifications.js"></script>
+	<script src = "./js/calendarEvent.js"></script>
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="stylesheet" type="text/css" href="./css/dashboard.css">
+	<link rel="stylesheet" type="text/css" href="./css/jquery-ui.css">
+	
+	<link rel="icon" type="image/ico" href="./img/cal.ico">
+	<meta charset="UTF-8">
+	<title>GroupMeet</title>
+</head>
+<body>
+	<header>
+		<table class="headerTable">
+			<tr>
+				<td>
+					<a href="./dashboard.html">
+						<img src="./img/logo.png" alt="GroupMeet Logo" id="logo">
+					</a>
+				</td>
+				<td id="searchbarContainer">
+					<form>
+						<input type="text" id="searchbar" name="search" placeholder="Search" autocomplete="off" >
+                    </form>
+                    <div id="dropdown">
+                        <ul id="results"></ul>
+                    </div>
+				</td>
+				<td>
+					<div id = "notificationContainer">
+						<a id="not">Notifications - </a>
+							<a class="notBrackets"> [ </a>
+								<a id='notificationDisplay'>0</a>
+							<a class="notBrackets"> ] </a>
+					</div>
+				</td>
+				<td id="myAccount">
+					<a id="myEmail"></a>
+					<a>&#9660;</a>
+				</td>
+			</tr>
+		</table>
+	</header>
+	<div id="main">
+		<div id="meetingPane" class="content collapse">
+			<table>
+				<tr>
+					<td>
+						<h2><a class="symbol"  href="./addMeeting.html">+</a> Meetings</h2>
+					</td>
+					<td id="leftArrow" class="arrowTd">
+						<a class="symbol">&#9664;</a>
+					</td>
+				</tr>
+			</table>
+			<hr>
+			<ul id="meetingList" class="collapseList">
+				<li onclick="myCalendar();">My Calendar</li>
+			</ul>
+		</div>
+		<div id="calendar" class="content">
+			<div id= "metaCalendarHeader">
+				<table id = "metaCalendarHeaderTable"> 
+					<tr>
+						<td><a class='symbol' id='showMeeting' style="display: none;">&#9654;</a></td>
+						<td>
+							<div id="viewSelectorContainer" class = "buttonContainer" style ="display: none">
+								<div id="day" class="buttonBox viewSelector"><a>Day</a></div>
+								<div id="week" class="buttonBox viewSelector selected"><a>Week</a></div>
+								<div id="month" class="buttonBox viewSelector"><a>Month</a></div>
+							</div>
+						</td>
+						<td><div><b>Week of: <a id = "dateStamp">DD - DD MON, 2017</a></b></div></td>
+						<td>
+							<div class = "buttonContainer">
+								<div class = "buttonBox" id = "today">Today</div>
+							</div>
+						</td>
+						<td>	
+							<div class = "buttonContainer" id = "nextButtons">
+								<div class = "buttonBox" id = "prev">&lt;</div>
+								<div class = "buttonBox" id = "next">&gt;</div>
+							</div>
+						</td>
+						<td style="text-align: right;"><a class='symbol' id='showConversation' style = "display: none;">&#9664;</a></td>
+					</tr>
+				</table>
+			</div>
+			<table id="calendarHeader" class="calendarTable">
+				<tr>
+					<th>
+						<input id="addEvent" value="Create" onclick="location.href = 'addEvent.html?mode=' + mode" type="button">		
+					</th>
+					<th>Sunday<br><a class = "dayHeader">11/12</a></th>
+					<th>Monday<br><a class = "dayHeader">11/13</a></th>
+					<th>Tuesday<br><a class = "dayHeader">11/15</a></th>
+					<th>Wednesday<br><a class = "dayHeader">11/15</a></th>
+					<th>Thursday<br><a class = "dayHeader">11/16</a></th>
+					<th>Friday<br><a class = "dayHeader">11/17</a></th>
+					<th>Saturday<br><a class = "dayHeader">11/18</a></th>
+				</tr>
+			</table>
+			<div id="calendarContainer">
+				<table id="calendarTable" class="calendarTable">
+					<tr>
+						<td>12am</td>
+						<td>
+							<div class="12am sunday hour top"></div>
+							<div class="12am sunday hour bottom"></div>
+						</td>
+						<td>
+							<div class="12am monday hour top"></div>
+							<div class="12am monday hour bottom"></div>
+						</td>
+						<td>
+							<div class="12am tuesday hour top"></div>
+							<div class="12am tuesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="12am wednesday hour top"></div>
+							<div class="12am wednesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="12am thursday hour top"></div>
+							<div class="12am thursday hour bottom"></div>
+						</td>
+						<td>
+							<div class="12am friday hour top"></div>
+							<div class="12am friday hour bottom"></div>
+						</td>
+						<td>
+							<div class="12am saturday hour top"></div>
+							<div class="12am saturday hour bottom"></div>
+						</td>
+					</tr>
+					<tr>
+						<td>1am</td>
+						<td>
+							<div class="1am sunday hour top"></div>
+							<div class="1am sunday hour bottom"></div>
+						</td>
+						<td>
+							<div class="1am monday hour top"></div>
+							<div class="1am monday hour bottom"></div>
+						</td>
+						<td>
+							<div class="1am tuesday hour top"></div>
+							<div class="1am tuesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="1am wednesday hour top"></div>
+							<div class="1am wednesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="1am thursday hour top"></div>
+							<div class="1am thursday hour bottom"></div>
+						</td>
+						<td>
+							<div class="1am friday hour top"></div>
+							<div class="1am friday hour bottom"></div>
+						</td>
+						<td>
+							<div class="1am saturday hour top"></div>
+							<div class="1am saturday hour bottom"></div>
+						</td>
+					</tr>
+					<tr>
+						<td>2am</td>
+						<td>
+							<div class="2am sunday hour top"></div>
+							<div class="2am sunday hour bottom"></div>
+						</td>
+						<td>
+							<div class="2am monday hour top"></div>
+							<div class="2am monday hour bottom"></div>
+						</td>
+						<td>
+							<div class="2am tuesday hour top"></div>
+							<div class="2am tuesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="2am wednesday hour top"></div>
+							<div class="2am wednesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="2am thursday hour top"></div>
+							<div class="2am thursday hour bottom"></div>
+						</td>
+						<td>
+							<div class="2am friday hour top"></div>
+							<div class="2am friday hour bottom"></div>
+						</td>
+						<td>
+							<div class="2am saturday hour top"></div>
+							<div class="2am saturday hour bottom"></div>
+						</td>
+					</tr>
+					<tr>
+						<td>3am</td>
+						<td>
+							<div class="3am sunday hour top"></div>
+							<div class="3am sunday hour bottom"></div>
+						</td>
+						<td>
+							<div class="3am monday hour top"></div>
+							<div class="3am monday hour bottom"></div>
+						</td>
+						<td>
+							<div class="3am tuesday hour top"></div>
+							<div class="3am tuesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="3am wednesday hour top"></div>
+							<div class="3am wednesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="3am thursday hour top"></div>
+							<div class="3am thursday hour bottom"></div>
+						</td>
+						<td>
+							<div class="3am friday hour top"></div>
+							<div class="3am friday hour bottom"></div>
+						</td>
+						<td>
+							<div class="3am saturday hour top"></div>
+							<div class="3am saturday hour bottom"></div>
+						</td>
+					</tr>
+					<tr>
+						<td>4am </td>
+						<td>
+							<div class="4am sunday hour top"></div>
+							<div class="4am sunday hour bottom"></div>
+						</td>
+						<td>
+							<div class="4am monday hour top"></div>
+							<div class="4am monday hour bottom"></div>
+						</td>
+						<td>
+							<div class="4am tuesday hour top"></div>
+							<div class="4am tuesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="4am wednesday hour top"></div>
+							<div class="4am wednesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="4am thursday hour top"></div>
+							<div class="4am thursday hour bottom"></div>
+						</td>
+						<td>
+							<div class="4am friday hour top"></div>
+							<div class="4am friday hour bottom"></div>
+						</td>
+						<td>
+							<div class="4am saturday hour top"></div>
+							<div class="4am saturday hour bottom"></div>
+						</td>
+					</tr>
+					<tr>
+						<td>5am</td>
+						<td>
+							<div class="5am sunday hour top"></div>
+							<div class="5am sunday hour bottom"></div>
+						</td>
+						<td>
+							<div class="5am monday hour top"></div>
+							<div class="5am monday hour bottom"></div>
+						</td>
+						<td>
+							<div class="5am tuesday hour top"></div>
+							<div class="5am tuesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="5am wednesday hour top"></div>
+							<div class="5am wednesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="5am thursday hour top"></div>
+							<div class="5am thursday hour bottom"></div>
+						</td>
+						<td>
+							<div class="5am friday hour top"></div>
+							<div class="5am friday hour bottom"></div>
+						</td>
+						<td>
+							<div class="5am saturday hour top"></div>
+							<div class="5am saturday hour bottom"></div>
+						</td>				
+					</tr>
+					<tr>
+						<td>6am</td>
+						<td>
+							<div class="6am sunday hour top"></div>
+							<div class="6am sunday hour bottom"></div>
+						</td>
+						<td>
+							<div class="6am monday hour top"></div>
+							<div class="6am monday hour bottom"></div>
+						</td>
+						<td>
+							<div class="6am tuesday hour top"></div>
+							<div class="6am tuesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="6am wednesday hour top"></div>
+							<div class="6am wednesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="6am thursday hour top"></div>
+							<div class="6am thursday hour bottom"></div>
+						</td>
+						<td>
+							<div class="6am friday hour top"></div>
+							<div class="6am friday hour bottom"></div>
+						</td>
+						<td>
+							<div class="6am saturday hour top"></div>
+							<div class="6am saturday hour bottom"></div>
+						</td>				
+					</tr>
+					<tr>
+						<td>7am</td>
+						<td>
+							<div class="7am sunday hour top"></div>
+							<div class="7am sunday hour bottom"></div>
+						</td>
+						<td>
+							<div class="7am monday hour top"></div>
+							<div class="7am monday hour bottom"></div>
+						</td>
+						<td>
+							<div class="7am tuesday hour top"></div>
+							<div class="7am tuesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="7am wednesday hour top"></div>
+							<div class="7am wednesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="7am thursday hour top"></div>
+							<div class="7am thursday hour bottom"></div>
+						</td>
+						<td>
+							<div class="7am friday hour top"></div>
+							<div class="7am friday hour bottom"></div>
+						</td>
+						<td>
+							<div class="7am saturday hour top"></div>
+							<div class="7am saturday hour bottom"></div>
+						</td>				
+					</tr>
+					<tr>
+						<td>8am</td>
+						<td>
+							<div class="8am sunday hour top"></div>
+							<div class="8am sunday hour bottom"></div>
+						</td>
+						<td>
+							<div class="8am monday hour top"></div>
+							<div class="8am monday hour bottom"></div>
+						</td>
+						<td>
+							<div class="8am tuesday hour top"></div>
+							<div class="8am tuesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="8am wednesday hour top"></div>
+							<div class="8am wednesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="8am thursday hour top"></div>
+							<div class="8am thursday hour bottom"></div>
+						</td>
+						<td>
+							<div class="8am friday hour top"></div>
+							<div class="8am friday hour bottom"></div>
+						</td>
+						<td>
+							<div class="8am saturday hour top"></div>
+							<div class="8am saturday hour bottom"></div>
+						</td>				
+					</tr>
+					<tr>
+						<td>9am</td>
+						<td>
+							<div class="9am sunday hour top"></div>
+							<div class="9am sunday hour bottom"></div>
+						</td>
+						<td>
+							<div class="9am monday hour top"></div>
+							<div class="9am monday hour bottom"></div>
+						</td>
+						<td>
+							<div class="9am tuesday hour top"></div>
+							<div class="9am tuesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="9am wednesday hour top"></div>
+							<div class="9am wednesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="9am thursday hour top"></div>
+							<div class="9am thursday hour bottom"></div>
+						</td>
+						<td>
+							<div class="9am friday hour top"></div>
+							<div class="9am friday hour bottom"></div>
+						</td>
+						<td>
+							<div class="9am saturday hour top"></div>
+							<div class="9am saturday hour bottom"></div>
+						</td>				
+					</tr>
+					<tr>
+						<td>10am</td>
+						<td>
+							<div class="10am sunday hour top"></div>
+							<div class="10am sunday hour bottom"></div>
+						</td>
+						<td>
+							<div class="10am monday hour top"></div>
+							<div class="10am monday hour bottom"></div>
+						</td>
+						<td>
+							<div class="10am tuesday hour top"></div>
+							<div class="10am tuesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="10am wednesday hour top"></div>
+							<div class="10am wednesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="10am thursday hour top"></div>
+							<div class="10am thursday hour bottom"></div>
+						</td>
+						<td>
+							<div class="10am friday hour top"></div>
+							<div class="10am friday hour bottom"></div>
+						</td>
+						<td>
+							<div class="10am saturday hour top"></div>
+							<div class="10am saturday hour bottom"></div>
+						</td>				
+					</tr>
+					<tr>
+						<td>11am</td>
+						<td>
+							<div class="11am sunday hour top"></div>
+							<div class="11am sunday hour bottom"></div>
+						</td>
+						<td>
+							<div class="11am monday hour top"></div>
+							<div class="11am monday hour bottom"></div>
+						</td>
+						<td>
+							<div class="11am tuesday hour top"></div>
+							<div class="11am tuesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="11am wednesday hour top"></div>
+							<div class="11am wednesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="11am thursday hour top"></div>
+							<div class="11am thursday hour bottom"></div>
+						</td>
+						<td>
+							<div class="11am friday hour top"></div>
+							<div class="11am friday hour bottom"></div>
+						</td>
+						<td>
+							<div class="11am saturday hour top"></div>
+							<div class="11am saturday hour bottom"></div>
+						</td>				
+					</tr>
+					<tr>
+						<td>12pm</td>
+						<td>
+							<div class="12pm sunday hour top"></div>
+							<div class="12pm sunday hour bottom"></div>
+						</td>
+						<td>
+							<div class="12pm monday hour top"></div>
+							<div class="12pm monday hour bottom"></div>
+						</td>
+						<td>
+							<div class="12pm tuesday hour top"></div>
+							<div class="12pm tuesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="12pm wednesday hour top"></div>
+							<div class="12pm wednesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="12pm thursday hour top"></div>
+							<div class="12pm thursday hour bottom"></div>
+						</td>
+						<td>
+							<div class="12pm friday hour top"></div>
+							<div class="12pm friday hour bottom"></div>
+						</td>
+						<td>
+							<div class="12pm saturday hour top"></div>
+							<div class="12pm saturday hour bottom"></div>
+						</td>				
+					</tr>
+					<tr>
+						<td>1pm</td>
+						<td>
+							<div class="1pm sunday hour top"></div>
+							<div class="1pm sunday hour bottom"></div>
+						</td>
+						<td>
+							<div class="1pm monday hour top"></div>
+							<div class="1pm monday hour bottom"></div>
+						</td>
+						<td>
+							<div class="1pm tuesday hour top"></div>
+							<div class="1pm tuesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="1pm wednesday hour top"></div>
+							<div class="1pm wednesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="1pm thursday hour top"></div>
+							<div class="1pm thursday hour bottom"></div>
+						</td>
+						<td>
+							<div class="1pm friday hour top"></div>
+							<div class="1pm friday hour bottom"></div>
+						</td>
+						<td>
+							<div class="1pm saturday hour top"></div>
+							<div class="1pm saturday hour bottom"></div>
+						</td>				
+					</tr>
+					<tr>
+						<td>2pm</td>
+						<td>
+							<div class="2pm sunday hour top"></div>
+							<div class="2pm sunday hour bottom"></div>
+						</td>
+						<td>
+							<div class="2pm monday hour top"></div>
+							<div class="2pm monday hour bottom"></div>
+						</td>
+						<td>
+							<div class="2pm tuesday hour top"></div>
+							<div class="2pm tuesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="2pm wednesday hour top"></div>
+							<div class="2pm wednesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="2pm thursday hour top"></div>
+							<div class="2pm thursday hour bottom"></div>
+						</td>
+						<td>
+							<div class="2pm friday hour top"></div>
+							<div class="2pm friday hour bottom"></div>
+						</td>
+						<td>
+							<div class="2pm saturday hour top"></div>
+							<div class="2pm saturday hour bottom"></div>
+						</td>				
+					</tr>
+					<tr>
+						<td>3pm</td>
+						<td>
+							<div class="3pm sunday hour top"></div>
+							<div class="3pm sunday hour bottom"></div>
+						</td>
+						<td>
+							<div class="3pm monday hour top"></div>
+							<div class="3pm monday hour bottom"></div>
+						</td>
+						<td>
+							<div class="3pm tuesday hour top"></div>
+							<div class="3pm tuesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="3pm wednesday hour top"></div>
+							<div class="3pm wednesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="3pm thursday hour top"></div>
+							<div class="3pm thursday hour bottom"></div>
+						</td>
+						<td>
+							<div class="3pm friday hour top"></div>
+							<div class="3pm friday hour bottom"></div>
+						</td>
+						<td>
+							<div class="3pm saturday hour top"></div>
+							<div class="3pm saturday hour bottom"></div>
+						</td>				
+					</tr>
+					<tr>
+						<td>4pm</td>
+						<td>
+							<div class="4pm sunday hour top"></div>
+							<div class="4pm sunday hour bottom"></div>
+						</td>
+						<td>
+							<div class="4pm monday hour top"></div>
+							<div class="4pm monday hour bottom"></div>
+						</td>
+						<td>
+							<div class="4pm tuesday hour top"></div>
+							<div class="4pm tuesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="4pm wednesday hour top"></div>
+							<div class="4pm wednesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="4pm thursday hour top"></div>
+							<div class="4pm thursday hour bottom"></div>
+						</td>
+						<td>
+							<div class="4pm friday hour top"></div>
+							<div class="4pm friday hour bottom"></div>
+						</td>
+						<td>
+							<div class="4pm saturday hour top"></div>
+							<div class="4pm saturday hour bottom"></div>
+						</td>				
+					</tr>
+					<tr>
+						<td>5pm</td>
+						<td>
+							<div class="5pm sunday hour top"></div>
+							<div class="5pm sunday hour bottom"></div>
+						</td>
+						<td>
+							<div class="5pm monday hour top"></div>
+							<div class="5pm monday hour bottom"></div>
+						</td>
+						<td>
+							<div class="5pm tuesday hour top"></div>
+							<div class="5pm tuesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="5pm wednesday hour top"></div>
+							<div class="5pm wednesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="5pm thursday hour top"></div>
+							<div class="5pm thursday hour bottom"></div>
+						</td>
+						<td>
+							<div class="5pm friday hour top"></div>
+							<div class="5pm friday hour bottom"></div>
+						</td>
+						<td>
+							<div class="5pm saturday hour top"></div>
+							<div class="5pm saturday hour bottom"></div>
+						</td>				
+					</tr>
+					<tr>
+						<td>6pm</td>
+						<td>
+							<div class="6pm sunday hour top"></div>
+							<div class="6pm sunday hour bottom"></div>
+						</td>
+						<td>
+							<div class="6pm monday hour top"></div>
+							<div class="6pm monday hour bottom"></div>
+						</td>
+						<td>
+							<div class="6pm tuesday hour top"></div>
+							<div class="6pm tuesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="6pm wednesday hour top"></div>
+							<div class="6pm wednesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="6pm thursday hour top"></div>
+							<div class="6pm thursday hour bottom"></div>
+						</td>
+						<td>
+							<div class="6pm friday hour top"></div>
+							<div class="6pm friday hour bottom"></div>
+						</td>
+						<td>
+							<div class="6pm saturday hour top"></div>
+							<div class="6pm saturday hour bottom"></div>
+						</td>				
+					</tr>
+					<tr>
+						<td>7pm</td>
+						<td>
+							<div class="7pm sunday hour top"></div>
+							<div class="7pm sunday hour bottom"></div>
+						</td>
+						<td>
+							<div class="7pm monday hour top"></div>
+							<div class="7pm monday hour bottom"></div>
+						</td>
+						<td>
+							<div class="7pm tuesday hour top"></div>
+							<div class="7pm tuesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="7pm wednesday hour top"></div>
+							<div class="7pm wednesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="7pm thursday hour top"></div>
+							<div class="7pm thursday hour bottom"></div>
+						</td>
+						<td>
+							<div class="7pm friday hour top"></div>
+							<div class="7pm friday hour bottom"></div>
+						</td>
+						<td>
+							<div class="7pm saturday hour top"></div>
+							<div class="7pm saturday hour bottom"></div>
+						</td>				
+					</tr>
+					<tr>
+						<td>8pm</td>
+						<td>
+							<div class="8pm sunday hour top"></div>
+							<div class="8pm sunday hour bottom"></div>
+						</td>
+						<td>
+							<div class="8pm monday hour top"></div>
+							<div class="8pm monday hour bottom"></div>
+						</td>
+						<td>
+							<div class="8pm tuesday hour top"></div>
+							<div class="8pm tuesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="8pm wednesday hour top"></div>
+							<div class="8pm wednesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="8pm thursday hour top"></div>
+							<div class="8pm thursday hour bottom"></div>
+						</td>
+						<td>
+							<div class="8pm friday hour top"></div>
+							<div class="8pm friday hour bottom"></div>
+						</td>
+						<td>
+							<div class="8pm saturday hour top"></div>
+							<div class="8pm saturday hour bottom"></div>
+						</td>				
+					</tr>
+					<tr>
+						<td>9pm</td>
+						<td>
+							<div class="9pm sunday hour top"></div>
+							<div class="9pm sunday hour bottom"></div>
+						</td>
+						<td>
+							<div class="9pm monday hour top"></div>
+							<div class="9pm monday hour bottom"></div>
+						</td>
+						<td>
+							<div class="9pm tuesday hour top"></div>
+							<div class="9pm tuesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="9pm wednesday hour top"></div>
+							<div class="9pm wednesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="9pm thursday hour top"></div>
+							<div class="9pm thursday hour bottom"></div>
+						</td>
+						<td>
+							<div class="9pm friday hour top"></div>
+							<div class="9pm friday hour bottom"></div>
+						</td>
+						<td>
+							<div class="9pm saturday hour top"></div>
+							<div class="9pm saturday hour bottom"></div>
+						</td>				
+					</tr>
+					<tr>
+						<td>10pm</td>
+						<td>
+							<div class="10pm sunday hour top"></div>
+							<div class="10pm sunday hour bottom"></div>
+						</td>
+						<td>
+							<div class="10pm monday hour top"></div>
+							<div class="10pm monday hour bottom"></div>
+						</td>
+						<td>
+							<div class="10pm tuesday hour top"></div>
+							<div class="10pm tuesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="10pm wednesday hour top"></div>
+							<div class="10pm wednesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="10pm thursday hour top"></div>
+							<div class="10pm thursday hour bottom"></div>
+						</td>
+						<td>
+							<div class="10pm friday hour top"></div>
+							<div class="10pm friday hour bottom"></div>
+						</td>
+						<td>
+							<div class="10pm saturday hour top"></div>
+							<div class="10pm saturday hour bottom"></div>
+						</td>				
+					</tr>
+					<tr>
+						<td>11pm</td>
+						<td>
+							<div class="11pm sunday hour top"></div>
+							<div class="11pm sunday hour bottom"></div>
+						</td>
+						<td>
+							<div class="11pm monday hour top"></div>
+							<div class="11pm monday hour bottom"></div>
+						</td>
+						<td>
+							<div class="11pm tuesday hour top"></div>
+							<div class="11pm tuesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="11pm wednesday hour top"></div>
+							<div class="11pm wednesday hour bottom"></div>
+						</td>
+						<td>
+							<div class="11pm thursday hour top"></div>
+							<div class="11pm thursday hour bottom"></div>
+						</td>
+						<td>
+							<div class="11pm friday hour top"></div>
+							<div class="11pm friday hour bottom"></div>
+						</td>
+						<td>
+							<div class="11pm saturday hour top"></div>
+							<div class="11pm saturday hour bottom"></div>
+						</td>				
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div id="conversationPane" class="content collapse">
+			<table>
+				<tr>
+					<td id="rightArrow" class="arrowTd">
+						<a class="symbol">&#9654;</a>
+					</td>
+					<td>
+                        <h2>Friends <a href="javascript:addFriend()" class="symbol">+</a></h2>
+					</td>
+				</tr>
+			</table>
+			<hr>
+			<ul id="friendsList" class="collapseList"></ul>
+		</div>
+	</div>
+	<footer>
+		
+    </footer>
+</body>
+</html>
